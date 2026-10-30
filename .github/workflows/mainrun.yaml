@@ -45,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Daffa_Dwi_05
-          path: build/app/outputs/flutter-apk/*.apk
+          path: build/app/outputs/flutter-apk/Daffa_Dwi_05.apk
