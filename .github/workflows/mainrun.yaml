@@ -1,0 +1,48 @@
+name: Flutter Build APK
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout kode dari repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Java Development Kit (JDK)
+      - name: Set up Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3. Setup Flutter Environment
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x' # Atau tentukan versi spesifik
+          channel: 'stable'
+          cache: true
+
+      # 4. Download Dependencies
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 5. Build APK Release
+      - name: Build APK
+        run: flutter build apk --release
+
+      # 6. Upload Hasil Build sebagai Artifact GitHub
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Daffa_Dwi_05
+          path: build/app/outputs/flutter-apk/*.apk
